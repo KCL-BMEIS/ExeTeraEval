@@ -75,14 +75,21 @@ def exetera_test_left_merge_command(input, vcount):
 
             print("running test")
             t0 = time.time()
+
+            # s.ordered_left_merge(a_ids, b_ids, a_to_b, left_unique=True,
+            #                      left_field_sources=(a_vals_f,), left_field_sinks=(b_vals_f,))
+            print(a_ids_f.data[:100])
+            print(b_ids_f.data[:100])
+            print(all_a_val_fields[0].data[:100])
             s.ordered_merge_left(a_ids_f, b_ids_f, left_to_right_map=a_to_b, right_unique=True,
                                  left_field_sources=tuple(all_a_val_fields),
                                  left_field_sinks=tuple(all_b_val_fields))
+            print(a_to_b.data[:100])
+            results = s.merge_left(a_ids_f, b_ids_f, right_fields=tuple(all_a_val_fields))
             elapsed = time.time() - t0
             print("total:", elapsed)
-            results = s.merge_left(a_ids_f, b_ids_f, right_fields=tuple(all_a_val_fields))
-            if not np.array_equal(all_b_val_fields[0].data[:], results[0]):
-                print("warning: mismatched results")
+            print(all_b_val_fields[0].data[:100])
+            print(results[0][:100])
 
 
 if __name__ == '__main__':
