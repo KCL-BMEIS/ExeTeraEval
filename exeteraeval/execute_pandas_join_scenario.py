@@ -20,13 +20,14 @@ def go(l_length, r_length):
   t0 = time.time()
   m_df = pd.merge(l_df, r_df, left_on='pk', right_on='fk', how='left')
   # m_df = pd.merge(l_df, r_df, left_index=True, right_on='fk')
+  m_df.to_hdf('m_df.hdf5', '/data')
   merged = time.time() - t0
   print("pandas: merged in {}".format(merged))
   print(len(m_df))
 
-  print(l_df[:100])
-  print(r_df[:100])
-  print(m_df[:100])
+  # print(l_df[:100])
+  # print(r_df[:100])
+  # print(m_df[:100])
   print("total:", left_read + right_read + merged)
 
 

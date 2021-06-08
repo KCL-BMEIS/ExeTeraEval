@@ -20,9 +20,11 @@ def dtype_from_schema(entry):
     else:
       return 'float64'
   elif ft == 'fixed_string':
-    return 'S{}'.format(entry['length'])
+    # return 'S{}'.format(entry['length'])
+    return 'str'
   else:
-    return 'object'
+    # return 'object'
+    return 'str'
 
 
 def go(schema_filename, table, src_filename, dest_filename):
@@ -39,8 +41,8 @@ def go(schema_filename, table, src_filename, dest_filename):
 
   t0 = time.time()
   df = pd.read_csv(src_filename, dtype=column_dtypes)
-  print(df.dtypes)
-  df.to_hdf(dest_filename, 'data', 'w')
+  print(time.time() - t0)
+  df.to_hdf(dest_filename, 'data', 'w', format='table')
   print(time.time() - t0)
 
 
@@ -55,3 +57,4 @@ if __name__ == '__main__':
     go(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
   except:
     print("failed after", time.time() - t0)
+    raise
