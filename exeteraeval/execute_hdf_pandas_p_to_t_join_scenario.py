@@ -18,7 +18,7 @@ def go(l_filename, r_filename):
   print("left dataframe read in {}".format(right_read))
 
   t0 = time.time()
-  l_df = l_df.sort_values(['patient_id', 'created_at'])
+  l_df = l_df.sort_values(['patient_id', 'created_at']))
   r_df = r_df.sort_values('id')
   print("sorted in {}".format(time.time() - t0))
 
